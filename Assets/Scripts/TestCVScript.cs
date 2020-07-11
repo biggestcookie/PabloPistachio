@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -15,7 +15,7 @@ public class TestCVScript : MonoBehaviour
 
     void Start()
     {
-        int thickness = 50;
+        int thickness = 30;
         kernel_erode = new Mat(thickness, thickness, CvType.CV_8UC1);
     }
 
@@ -59,8 +59,8 @@ public class TestCVScript : MonoBehaviour
         Core.findNonZero(invertedOg, originalWhite);
         Core.findNonZero(differencesMat, croppedDiffWhite);
 
-        SaveMatToFile(invertedOg, "original");
-        SaveMatToFile(differencesMat, "diffs");
+        // SaveMatToFile(invertedOg, "original");
+        // SaveMatToFile(differencesMat, "diffs");
 
         float ratio = (float)croppedDiffWhite.rows() / (float)originalWhite.rows();
         return 1f - Mathf.Min(ratio, 1f);
