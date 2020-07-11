@@ -22,7 +22,7 @@ public class Cursor : MonoBehaviour
         float y = Input.GetAxis("Mouse Y") / 10;
         float x_dir = x / Mathf.Abs(x);
         float y_dir = y / Mathf.Abs(y);
-        Debug.Log("Mouse X: " + x + ", Mouse Y: " + y);
+        // Debug.Log("Mouse X: " + x + ", Mouse Y: " + y);
         float step = speed * Time.deltaTime;
         //x = Mathf.MoveTowards(x, speed * Input.GetAxisRaw("Mouse X"), accel * Time.deltaTime);
         //y = Mathf.MoveTowards(y, speed * Input.GetAxisRaw("Mouse Y"), accel * Time.deltaTime);
