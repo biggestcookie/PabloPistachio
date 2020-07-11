@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 1615291431}
   - component: {fileID: 1615291435}
   m_Layer: 0
-  m_Name: mouse
+  m_Name: cursor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
