@@ -13,7 +13,7 @@ namespace FreeDraw
     public class Drawable : MonoBehaviour
     {
         // PEN COLOUR
-        public static Color Pen_Colour = Color.black;     // Change these to change the default drawing settings
+        public Color Pen_Colour = Color.black;     // Change these to change the default drawing settings
         // PEN WIDTH (actually, it's a radius, in pixels)
         public static int Pen_Width = 3;
 
@@ -45,8 +45,8 @@ namespace FreeDraw
 
 
 
-//////////////////////////////////////////////////////////////////////////////
-// BRUSH TYPES. Implement your own here
+        //////////////////////////////////////////////////////////////////////////////
+        // BRUSH TYPES. Implement your own here
 
 
         // When you want to make your own type of brush effects,
@@ -86,14 +86,14 @@ namespace FreeDraw
             // 3. Actually apply the changes we marked earlier
             // Done here to be more efficient
             ApplyMarkedPixelChanges();
-            
+
             // 4. If dragging, update where we were previously
             previous_drag_position = pixel_pos;
         }
 
 
 
-        
+
         // Default brush type. Has width and colour.
         // Pass in a point in WORLD coordinates
         // Changes the surrounding pixels of the world_point to the static pen_colour
@@ -127,7 +127,7 @@ namespace FreeDraw
             // PenBrush is the NAME of the method we want to set as our current brush
             current_brush = PenBrush;
         }
-//////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -288,7 +288,7 @@ namespace FreeDraw
         }
 
 
-        
+
         void Awake()
         {
             drawable = this;
