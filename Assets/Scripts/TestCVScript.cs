@@ -52,8 +52,7 @@ public class TestCVScript : MonoBehaviour
         Imgproc.dilate(invertedOg, invertedOg, kernel_erode);
 
         Mat differencesMat = new Mat(userMat.rows(), userMat.cols(), CvType.CV_8UC4);
-        
-        // Core.subtract(userMat, originalMat, differencesMat);
+        Core.subtract(userMat, originalMat, differencesMat);
 
         Mat originalWhite = new Mat();
         Mat croppedDiffWhite = new Mat();
