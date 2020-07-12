@@ -88,7 +88,7 @@ public class TestCVScript : MonoBehaviour
         userMasked = new Mat(userMasked, roi);
         invertedOg = new Mat(invertedOg, roi);
 
-        int thickness = color == Color.black ? 30 : 20;
+        int thickness = 40;
         Mat kernel_erode = new Mat(thickness, thickness, CvType.CV_8UC1);
         Imgproc.erode(ogMasked, ogMasked, kernel_erode);
         Imgproc.erode(userMasked, userMasked, kernel_erode);
