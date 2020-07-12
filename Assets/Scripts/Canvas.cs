@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Canvas : MonoBehaviour
 {
+    public bool isClicking = false;
     public bool jump = false;
     public bool fall = false;
     public bool rotate = false;
@@ -51,6 +52,23 @@ public class Canvas : MonoBehaviour
                 jump_timer = 0.25f;
                 fall = false;
             }
+        }
+    }
+    void OnMouseDown()
+    {
+        isClicking = true;
+    }
+
+    void OnMouseUp()
+    {
+        isClicking = false;
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.name == "cursor")
+        {
+            isClicking = false;
         }
     }
 }
