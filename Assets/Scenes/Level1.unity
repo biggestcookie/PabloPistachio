@@ -401,7 +401,7 @@ MonoBehaviour:
   nerbous: {fileID: 1064621316}
   elefun: {fileID: 6934853391806661880, guid: 104675cab74db00458aeb99cfb6045b4, type: 3}
   wind: {fileID: 9045341478616204568, guid: 1c56aad56a8af4645bf12ebac6e31310, type: 3}
-  timer: 30
+  timer: 40
   rngTimer: 5
   cursor: {fileID: 1615291430}
   canvas: {fileID: 591630632}
