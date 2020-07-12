@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         timerBar.value = timer;
-        Debug.Log(timer);
+        // Debug.Log(timer);
         if (canvas.GetComponent<Canvas>().isClicking)
         {
             slowDown = true;
