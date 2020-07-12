@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject elefun;
     public GameObject wind;
     public float timer = 60f;
     private bool shaking = false;
@@ -46,13 +47,20 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown("f") && !canvas.GetComponent<Canvas>().jump && !canvas.GetComponent<Canvas>().fall)
         {
+            Instantiate(elefun);
+            Wait();
             canvas.GetComponent<Canvas>().jump = true;
         }
 
-        if(Input.GetKeyDown("l"))
+        if (Input.GetKeyDown("l"))
         {
             canvas.GetComponent<Canvas>().lights = true;
         }
+    }
+
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(2f);
     }
 
     void GameOver()

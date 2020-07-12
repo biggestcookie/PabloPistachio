@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Canvas : MonoBehaviour
 {
+    public GameObject bg;
+    private SpriteRenderer bg_render;
+    public Sprite no_light_bg;
+    private Sprite orig_bg;
     public bool isClicking = false;
     public GameObject mask;
     public bool jump = false;
@@ -15,6 +19,8 @@ public class Canvas : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        bg_render = bg.GetComponent<SpriteRenderer>();
+        orig_bg = bg_render.sprite;
         mask.SetActive(false);
     }
 
@@ -23,6 +29,7 @@ public class Canvas : MonoBehaviour
     {
         if (lights)
         {
+            this.gameObject.GetComponent<AudioSource>().Play();
             StartCoroutine(WaitAndDoSomething());
             lights = false;
         }
@@ -64,8 +71,10 @@ public class Canvas : MonoBehaviour
     }
     IEnumerator WaitAndDoSomething()
     {
+        bg_render.sprite = no_light_bg;
         mask.SetActive(true);
         yield return new WaitForSeconds(1f);//change duration using this
+        bg_render.sprite = orig_bg;
         mask.SetActive(false);
     }
 
