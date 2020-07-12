@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject nerbous;
     public GameObject elefun;
     public GameObject wind;
-    public float timer = 30f;
+    public float timer;
     public float rngTimer = 5f;
     private float rngMin;
     public GameObject cursor;
@@ -144,11 +144,11 @@ public class GameManager : MonoBehaviour
 
     void Finish()
     {
-        //ImageComparer.GetComponent<TestCVScript>().gameEnded = true;
-        
+        TestCVScript.gameEnded = true;
+
         /*this is just to make sure the score is being updated. 
         Feel free to add whatever logic needed to calculate the actual score.*/
-        GameManager.score += 10;
-        SceneManager.LoadScene("EndScene");//loads the ending scree.
+        //GameManager.score += 10;
+        //.LoadScene("EndScene");//loads the ending scree.
     }
 }

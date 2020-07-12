@@ -7,7 +7,15 @@ using OpenCVForUnity.ImgprocModule;
 
 public class TestCVScript : MonoBehaviour
 {
-    public bool gameEnded = false;
+    public GameObject win;
+    public GameObject lose;
+    public GameObject playAgain;
+    public GameObject nextLevel;
+    public GameObject exit;
+    public static float score;
+    public GameObject scoreObj;
+    public GameObject scoreText;
+    public static bool gameEnded = false;
     public Sprite easelSprite;
     public Sprite compareSprite;
     private string path = "C:/Users/Paul/Desktop/";
@@ -35,7 +43,21 @@ public class TestCVScript : MonoBehaviour
                 return score * multiplier;
             }
         ).ToArray();
-        float finalScore = scores.Sum() / 100;
+        float finalScore = scores.Sum();
+        score = finalScore;
+        if (finalScore >= 60f)
+        {
+            nextLevel.SetActive(true);
+            win.SetActive(true);
+        }
+        else
+        {
+            lose.SetActive(true);
+            playAgain.SetActive(true);
+        }
+        scoreObj.SetActive(true);
+        scoreText.GetComponent<UnityEngine.UI.Text>().text = "Your score was " + finalScore.ToString("0.##");
+        exit.SetActive(true);
         print("Final score: " + finalScore);
     }
 
