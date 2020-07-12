@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
+    private bool isDay = false;
     private bool gameOver = false;
     public GameObject ImageComparer;
     public GameObject bikemen;
@@ -12,6 +13,8 @@ public class GameManager : MonoBehaviour
     public GameObject elefun;
     public GameObject wind;
     public float timer = 60f;
+    public float rngTimer = 5f;
+    private float rngMin;
     public GameObject cursor;
     public GameObject canvas;
     public GameObject timerBarObj;
@@ -19,6 +22,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (canvas.GetComponent<Canvas>().bg_render.name == "Park_Day")
+        {
+            isDay = true;
+        }
         timerBar = timerBarObj.GetComponent<Slider>();
     }
 
@@ -42,7 +49,66 @@ public class GameManager : MonoBehaviour
                 timer -= Time.deltaTime;
             }
         }
+        if (timer > 5f)
+        {
+            if (rngTimer < 0)
+            {
+                rngTimer = Random.Range(3f, 3f + rngMin);
+                rngMin = (int)(5 * (timer / 30f));
+                if (isDay)
+                {
+                    DoRandomEvent();
+                }
+                else
+                {
+                    DoRandomEventWithLight();
+                }
+            }
+            rngTimer -= Time.deltaTime;
+        }
+    }
 
+    void DoRandomEvent()
+    {
+        int select = Random.Range(0, 4);
+        switch (select)
+        {
+            case 0:
+                BumpEvent();
+                break;
+            case 1:
+                ShakeEvent();
+                break;
+            case 2:
+                RotateEvent();
+                break;
+            case 3:
+                JumpEvent();
+                break;
+        }
+    }
+
+    void DoRandomEventWithLight()
+    {
+        int select = Random.Range(0, 5);
+        switch (select)
+        {
+            case 0:
+                BumpEvent();
+                break;
+            case 1:
+                ShakeEvent();
+                break;
+            case 2:
+                RotateEvent();
+                break;
+            case 3:
+                JumpEvent();
+                break;
+            case 4:
+                LightEvent();
+                break;
+        }
     }
 
     void BumpEvent()
@@ -76,6 +142,7 @@ public class GameManager : MonoBehaviour
         canvas.GetComponent<Canvas>().lights = true;
 
     }
+
 
     void Finish()
     {

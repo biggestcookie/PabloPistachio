@@ -5,7 +5,7 @@ using UnityEngine;
 public class Canvas : MonoBehaviour
 {
     public GameObject bg;
-    private SpriteRenderer bg_render;
+    public SpriteRenderer bg_render;
     public Sprite no_light_bg;
     private Sprite orig_bg;
     public bool isClicking = false;
