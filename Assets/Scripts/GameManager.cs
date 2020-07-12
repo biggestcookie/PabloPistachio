@@ -31,7 +31,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(Input.GetKeyDown("l")) 
+        {//helps me force the exit screen
+            Finish();
+        }
         angery.SetActive(cursor.GetComponent<Cursor>().bumped);
         nerbous.SetActive(cursor.GetComponent<Cursor>().shaking);
         timerBar.value = timer;
@@ -149,6 +152,7 @@ public class GameManager : MonoBehaviour
         /*this is just to make sure the score is being updated. 
         Feel free to add whatever logic needed to calculate the actual score.*/
         GameManager.score += 10;
+        Screen.lockCursor = false;//need this to show cursor on next screen
         SceneManager.LoadScene("EndScene");//loads the ending scree.
     }
 }
