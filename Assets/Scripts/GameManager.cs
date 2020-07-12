@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public float timer = 60f;
     private bool shaking = false;
     private bool bumped = false;
     public GameObject cursor;
@@ -17,6 +18,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        timer -= Time.deltaTime;
+        if (timer < 0f)
+        {
+            GameOver();
+        }
         if (Input.GetKeyDown("a"))
         {
             cursor.GetComponent<Cursor>().bumped = true;
@@ -35,5 +41,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void GameOver()
+    {
 
+    }
 }
