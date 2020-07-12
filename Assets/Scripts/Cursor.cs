@@ -22,6 +22,7 @@ public class Cursor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        this.gameObject.GetComponent<SpriteRenderer>().color = FreeDraw.Drawable.Pen_Colour;
         this.gameObject.transform.position = MouseLocation();
         if (this.gameObject.transform.position.x < Camera.main.ViewportToWorldPoint(new Vector3(0f, 0f, 0f)).x)
         {
