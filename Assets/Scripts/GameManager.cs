@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
     public GameObject canvas;
     public GameObject timerBarObj;
     private Slider timerBar;
-    private bool gameOver = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,13 +24,13 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         angery.SetActive(cursor.GetComponent<Cursor>().bumped);
         nerbous.SetActive(cursor.GetComponent<Cursor>().shaking);
         timerBar.value = timer;
-        if (timer <= 0f && !gameOver)
+        if (timer <= 0f)
         {
             timer = 0f;
-            gameOver = true;
             Finish();
         }
         else
@@ -41,30 +40,39 @@ public class GameManager : MonoBehaviour
                 timer -= Time.deltaTime;
             }
         }
-        if (Input.GetKeyDown("a"))
-        {
-            Instantiate(bikemen);
-            cursor.GetComponent<Cursor>().bumped = true;
-        }
-        if (Input.GetKeyDown("s"))
-        {
-            cursor.GetComponent<Cursor>().shaking = true;
-        }
-        if (Input.GetKeyDown("d"))
-        {
-            Instantiate(wind);
-            canvas.GetComponent<Canvas>().rotate = true;
-        }
-        if (Input.GetKeyDown("f") && !canvas.GetComponent<Canvas>().jump && !canvas.GetComponent<Canvas>().fall)
+
+    }
+
+    void BumpEvent()
+    {
+        Instantiate(bikemen);
+        cursor.GetComponent<Cursor>().bumped = true;
+    }
+
+    void ShakeEvent()
+    {
+        cursor.GetComponent<Cursor>().shaking = true;
+    }
+
+    void RotateEvent()
+    {
+        Instantiate(wind);
+        canvas.GetComponent<Canvas>().rotate = true;
+    }
+
+    void JumpEvent()
+    {
+        if (!canvas.GetComponent<Canvas>().jump && !canvas.GetComponent<Canvas>().fall)
         {
             Instantiate(elefun);
             canvas.GetComponent<Canvas>().jump = true;
         }
+    }
 
-        if (Input.GetKeyDown("l"))
-        {
-            canvas.GetComponent<Canvas>().lights = true;
-        }
+    void LightEvent()
+    {
+        canvas.GetComponent<Canvas>().lights = true;
+
     }
 
     void Finish()
