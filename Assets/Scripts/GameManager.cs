@@ -5,7 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
-    private bool isDay = false;
+    public GameObject bg;
+    public bool isDay;
     private bool gameOver = false;
     public GameObject ImageComparer;
     public GameObject bikemen;
@@ -13,7 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject nerbous;
     public GameObject elefun;
     public GameObject wind;
-    public float timer = 60f;
+    public float timer = 30f;
     public float rngTimer = 5f;
     private float rngMin;
     public GameObject cursor;
@@ -24,10 +25,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (canvas.GetComponent<Canvas>().bg_render.name == "Park_Day")
-        {
-            isDay = true;
-        }
         timerBar = timerBarObj.GetComponent<Slider>();
     }
 
@@ -41,7 +38,6 @@ public class GameManager : MonoBehaviour
         if (timer <= 0f && !gameOver)
         {
             gameOver = true;
-            timer = 0f;
             Finish();
         }
         else

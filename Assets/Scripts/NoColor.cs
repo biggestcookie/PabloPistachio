@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ColorSelector : MonoBehaviour
+public class NoColor : MonoBehaviour
 {
     private bool isTouching = false;
     // Start is called before the first frame update
@@ -16,9 +16,10 @@ public class ColorSelector : MonoBehaviour
     {
         if (isTouching && Input.GetMouseButtonDown(0))
         {
-            FreeDraw.Drawable.Pen_Colour = this.gameObject.GetComponent<SpriteRenderer>().color;
+            FreeDraw.Drawable.Pen_Colour = new Color(0f, 0f, 0f, 0f);
         }
     }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         isTouching = true;
