@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private bool isDay = false;
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
     public GameObject canvas;
     public GameObject timerBarObj;
     private Slider timerBar;
+    public static int score = 20;//static so other scripts can reference it for anything
     // Start is called before the first frame update
     void Start()
     {
@@ -146,6 +148,11 @@ public class GameManager : MonoBehaviour
 
     void Finish()
     {
-        ImageComparer.GetComponent<TestCVScript>().gameEnded = true;
+        //ImageComparer.GetComponent<TestCVScript>().gameEnded = true;
+        
+        /*this is just to make sure the score is being updated. 
+        Feel free to add whatever logic needed to calculate the actual score.*/
+        GameManager.score += 10;
+        SceneManager.LoadScene("EndScene");//loads the ending scree.
     }
 }
