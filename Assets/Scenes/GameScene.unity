@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bg: {fileID: 1364210358}
-  isDay: 0
+  isDay: 1
   ImageComparer: {fileID: 471967297}
   bikemen: {fileID: 4931717971204601778, guid: 269c048be1a618644b3878924f4c7d5e, type: 3}
   angery: {fileID: 1636067784}

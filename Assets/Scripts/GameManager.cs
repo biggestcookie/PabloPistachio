@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour
         if (timer <= 0f && !gameOver)
         {
             gameOver = true;
-            timer = 0f;
             Finish();
         }
         else
