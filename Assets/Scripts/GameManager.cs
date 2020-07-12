@@ -5,11 +5,12 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject bikemen;
+    public GameObject angery;
+    public GameObject nerbous;
     public GameObject elefun;
     public GameObject wind;
     public float timer = 60f;
-    private bool shaking = false;
-    private bool bumped = false;
     public GameObject cursor;
     public GameObject canvas;
     public GameObject timerBarObj;
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        angery.SetActive(cursor.GetComponent<Cursor>().bumped);
+        nerbous.SetActive(cursor.GetComponent<Cursor>().shaking);
         timerBar.value = timer;
         if (!canvas.GetComponent<Canvas>().isClicking || Time.frameCount % 2 == 0)
         {
@@ -34,6 +37,7 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown("a"))
         {
+            Instantiate(bikemen);
             cursor.GetComponent<Cursor>().bumped = true;
         }
         if (Input.GetKeyDown("s"))
