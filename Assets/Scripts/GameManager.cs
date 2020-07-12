@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public GameObject canvas;
     public GameObject timerBarObj;
     private Slider timerBar;
+    private bool gameOver = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,9 +28,10 @@ public class GameManager : MonoBehaviour
         angery.SetActive(cursor.GetComponent<Cursor>().bumped);
         nerbous.SetActive(cursor.GetComponent<Cursor>().shaking);
         timerBar.value = timer;
-        if (timer <= 0f)
+        if (timer <= 0f && !gameOver)
         {
             timer = 0f;
+            gameOver = true;
             Finish();
         }
         else

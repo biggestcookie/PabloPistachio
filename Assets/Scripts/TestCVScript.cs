@@ -11,31 +11,38 @@ public class TestCVScript : MonoBehaviour
     public Sprite easelSprite;
     public Sprite compareSprite;
     private string path = "C:/Users/Paul/Desktop/";
+    public Color[] colors;
 
     void Update()
     {
         if (Input.GetKeyUp("p") || gameEnded)
         {
+            Destroy(GameObject.FindGameObjectWithTag("Ref"));
             CompareTwoImages();
+            gameEnded = false;
         }
     }
 
     void CompareTwoImages()
     {
-        Color[] colors = new[] { Color.black, Color.red };
+        int multiplier = 50;
         float[] scores = colors.Select(
             color =>
             {
-                float score = compareImageToOriginal(easelSprite.texture, compareSprite.texture, color);
+                float score = compareImageToOriginal(color);
                 print("Score: " + score);
-                return score;
+                multiplier -= 10;
+                return score * multiplier;
             }
         ).ToArray();
-        print("Final score: " + scores.Average());
+        float finalScore = scores.Sum() / 100;
+        print("Final score: " + finalScore);
     }
 
-    float compareImageToOriginal(Texture2D userTexture, Texture2D originalTexture, Color color)
+    float compareImageToOriginal(Color color)
     {
+        Texture2D userTexture = easelSprite.texture;
+        Texture2D originalTexture = compareSprite.texture;
         Scalar colorScalar = ColorToRGBScalar(color);
         Mat originalMat = TextureToMat(originalTexture);
         Mat userMat = TextureToMat(userTexture);
@@ -59,7 +66,7 @@ public class TestCVScript : MonoBehaviour
         userMasked = new Mat(userMasked, roi);
         invertedOg = new Mat(invertedOg, roi);
 
-        int thickness = color == Color.black ? 30 : 40;
+        int thickness = color == Color.black ? 20 : 10;
         Mat kernel_erode = new Mat(thickness, thickness, CvType.CV_8UC1);
         Imgproc.erode(ogMasked, ogMasked, kernel_erode);
         Imgproc.erode(userMasked, userMasked, kernel_erode);
