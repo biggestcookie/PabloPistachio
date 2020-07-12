@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
+    private bool gameOver = false;
     public GameObject ImageComparer;
     public GameObject bikemen;
     public GameObject angery;
@@ -28,8 +29,9 @@ public class GameManager : MonoBehaviour
         angery.SetActive(cursor.GetComponent<Cursor>().bumped);
         nerbous.SetActive(cursor.GetComponent<Cursor>().shaking);
         timerBar.value = timer;
-        if (timer <= 0f)
+        if (timer <= 0f && !gameOver)
         {
+            gameOver = true;
             timer = 0f;
             Finish();
         }
