@@ -5,9 +5,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject wind;
     public float timer = 60f;
-    private bool slowDown = false;
-    private bool slowFlip = true;
     private bool shaking = false;
     private bool bumped = false;
     public GameObject cursor;
@@ -24,16 +23,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         timerBar.value = timer;
-        // Debug.Log(timer);
-        if (canvas.GetComponent<Canvas>().isClicking)
-        {
-            slowDown = true;
-        }
-        else
-        {
-            slowDown = false;
-        }
-        if (!slowDown || Time.frameCount % 2 == 0)
+        if (!canvas.GetComponent<Canvas>().isClicking || Time.frameCount % 2 == 0)
         {
             timer -= Time.deltaTime;
         }
@@ -51,15 +41,12 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown("d"))
         {
+            Instantiate(wind);
             canvas.GetComponent<Canvas>().rotate = true;
         }
         if (Input.GetKeyDown("f") && !canvas.GetComponent<Canvas>().jump && !canvas.GetComponent<Canvas>().fall)
         {
             canvas.GetComponent<Canvas>().jump = true;
-        }
-        if (Input.GetKeyDown("l"))
-        {
-            canvas.GetComponent<Canvas>().lights = true;
         }
     }
 

@@ -231,6 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b25411c7f22d2e4c81cf138d6195498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wind: {fileID: 9045341478616204568, guid: 1c56aad56a8af4645bf12ebac6e31310, type: 3}
   timer: 60
   cursor: {fileID: 1615291430}
   canvas: {fileID: 591630632}

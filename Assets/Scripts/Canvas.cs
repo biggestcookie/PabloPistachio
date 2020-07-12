@@ -67,22 +67,23 @@ public class Canvas : MonoBehaviour
         mask.SetActive(true);
         yield return new WaitForSeconds(1f);//change duration using this
         mask.SetActive(false);
-        void OnMouseDown()
-        {
-            isClicking = true;
-        }
+    }
 
-        void OnMouseUp()
+    void OnMouseDown()
+    {
+        isClicking = true;
+    }
+
+    void OnMouseUp()
+    {
+        isClicking = false;
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.name == "cursor")
         {
             isClicking = false;
-        }
-
-        void OnTriggerExit2D(Collider2D other)
-        {
-            if (other.name == "cursor")
-            {
-                isClicking = false;
-            }
         }
     }
 }
