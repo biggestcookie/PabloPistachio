@@ -4,20 +4,28 @@ using UnityEngine;
 
 public class Canvas : MonoBehaviour
 {
+    public GameObject mask;
     public bool jump = false;
     public bool fall = false;
     public bool rotate = false;
+    public bool lights = false;
     private float jump_timer = 0.25f;
     private float rotate_timer = 1f;
     // Start is called before the first frame update
     void Start()
     {
-
+        mask.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (lights)
+        {
+            StartCoroutine(WaitAndDoSomething());
+            lights = false;
+        }
+
         if (rotate)
         {
             this.gameObject.transform.Rotate(new Vector3(0f, 0f, 1f) * 360 * Time.deltaTime);
@@ -52,5 +60,11 @@ public class Canvas : MonoBehaviour
                 fall = false;
             }
         }
+    }
+    IEnumerator WaitAndDoSomething()
+    {
+        mask.SetActive(true);
+        yield return new WaitForSeconds(1f);//change duration using this
+        mask.SetActive(false);
     }
 }
