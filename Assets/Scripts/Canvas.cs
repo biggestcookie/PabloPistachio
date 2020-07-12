@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Canvas : MonoBehaviour
 {
-    public GameObject mask;
+    public bool isClicking = false;
     public bool jump = false;
     public bool fall = false;
     public bool rotate = false;
@@ -66,5 +66,22 @@ public class Canvas : MonoBehaviour
         mask.SetActive(true);
         yield return new WaitForSeconds(1f);//change duration using this
         mask.SetActive(false);
+        void OnMouseDown()
+        {
+            isClicking = true;
+        }
+
+        void OnMouseUp()
+        {
+            isClicking = false;
+        }
+
+        void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.name == "cursor")
+            {
+                isClicking = false;
+            }
+        }
     }
 }

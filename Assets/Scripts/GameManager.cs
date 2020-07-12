@@ -1,24 +1,42 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public float timer = 60f;
+    private bool slowDown = false;
+    private bool slowFlip = true;
     private bool shaking = false;
     private bool bumped = false;
     public GameObject cursor;
     public GameObject canvas;
+    public GameObject timerBarObj;
+    private Slider timerBar;
     // Start is called before the first frame update
     void Start()
     {
-
+        timerBar = timerBarObj.GetComponent<Slider>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer -= Time.deltaTime;
+        timerBar.value = timer;
+        Debug.Log(timer);
+        if (canvas.GetComponent<Canvas>().isClicking)
+        {
+            slowDown = true;
+        }
+        else
+        {
+            slowDown = false;
+        }
+        if (!slowDown || Time.frameCount % 2 == 0)
+        {
+            timer -= Time.deltaTime;
+        }
         if (timer < 0f)
         {
             GameOver();
