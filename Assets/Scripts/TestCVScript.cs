@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
+using System.Linq;
 using UnityEngine;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.UnityUtils;
@@ -11,13 +10,6 @@ public class TestCVScript : MonoBehaviour
     public Sprite easelSprite;
     public Sprite compareSprite;
     private string path = "C:/Users/Paul/Desktop/";
-    private Mat kernel_erode;
-
-    void Start()
-    {
-        int thickness = 30;
-        kernel_erode = new Mat(thickness, thickness, CvType.CV_8UC1);
-    }
 
     void Update()
     {
@@ -29,38 +21,59 @@ public class TestCVScript : MonoBehaviour
 
     void CompareTwoImages()
     {
-        print("Ratio: " + imageToOriginal(easelSprite.texture, compareSprite.texture));
+        Color[] colors = new[] { Color.black, Color.red };
+        float[] scores = colors.Select(
+            color =>
+            {
+                float score = compareImageToOriginal(easelSprite.texture, compareSprite.texture, color);
+                print("Score: " + score);
+                return score;
+            }
+        ).ToArray();
+        print("Final score: " + scores.Average());
     }
 
-    float imageToOriginal(Texture2D userTexture, Texture2D originalTexture)
+    float compareImageToOriginal(Texture2D userTexture, Texture2D originalTexture, Color color)
     {
-        Mat originalMat = TextureToBWMat(originalTexture);
-        Mat userMat = TextureToBWMat(userTexture);
-        Imgproc.threshold(userMat, userMat, 70, 255, Imgproc.THRESH_BINARY);
+        Scalar colorScalar = ColorToRGBScalar(color);
+        Mat originalMat = TextureToMat(originalTexture);
+        Mat userMat = TextureToMat(userTexture);
+
+        Mat ogMasked = new Mat();
+        Core.inRange(originalMat, colorScalar, colorScalar, ogMasked);
+
+        Mat userMasked = new Mat();
+        Core.inRange(userMat, colorScalar, colorScalar, userMasked);
+
+        Imgproc.threshold(userMasked, userMasked, 50, 255, Imgproc.THRESH_BINARY_INV);
+        Imgproc.threshold(ogMasked, ogMasked, 50, 255, Imgproc.THRESH_BINARY_INV);
 
         // Crop images to original
         Mat invertedOg = new Mat();
-        Core.bitwise_not(originalMat, invertedOg);
+        Core.bitwise_not(ogMasked, invertedOg);
+
         (Point start, Point end) = CropMatBounds(invertedOg);
         OpenCVForUnity.CoreModule.Rect roi = new OpenCVForUnity.CoreModule.Rect(end, start);
-        originalMat = new Mat(originalMat, roi);
-        userMat = new Mat(userMat, roi);
+        ogMasked = new Mat(ogMasked, roi);
+        userMasked = new Mat(userMasked, roi);
         invertedOg = new Mat(invertedOg, roi);
 
-        Imgproc.erode(originalMat, originalMat, kernel_erode);
-        Imgproc.erode(userMat, userMat, kernel_erode);
+        int thickness = color == Color.black ? 30 : 40;
+        Mat kernel_erode = new Mat(thickness, thickness, CvType.CV_8UC1);
+        Imgproc.erode(ogMasked, ogMasked, kernel_erode);
+        Imgproc.erode(userMasked, userMasked, kernel_erode);
         Imgproc.dilate(invertedOg, invertedOg, kernel_erode);
 
-        Mat differencesMat = new Mat(userMat.rows(), userMat.cols(), CvType.CV_8UC4);
-        Core.subtract(userMat, originalMat, differencesMat);
+        Mat differencesMat = new Mat(userMasked.rows(), userMasked.cols(), CvType.CV_8UC4);
+        Core.subtract(userMasked, ogMasked, differencesMat);
 
         Mat originalWhite = new Mat();
         Mat croppedDiffWhite = new Mat();
         Core.findNonZero(invertedOg, originalWhite);
         Core.findNonZero(differencesMat, croppedDiffWhite);
 
-        // SaveMatToFile(invertedOg, "original");
-        // SaveMatToFile(differencesMat, "diffs");
+        // SaveMatToFile(invertedOg, "inverted" + (color == Color.black ? "black" : "red"));
+        // SaveMatToFile(differencesMat, "diffs" + (color == Color.black ? "black" : "red"));
 
         float ratio = (float)croppedDiffWhite.rows() / (float)originalWhite.rows();
         return 1f - Mathf.Min(ratio, 1f);
@@ -153,11 +166,15 @@ public class TestCVScript : MonoBehaviour
         return (new Point(xStart, yStart), new Point(xEnd, yEnd));
     }
 
-    Mat TextureToBWMat(Texture2D texture)
+    Scalar ColorToRGBScalar(Color color)
+    {
+        return new Scalar(color.r * 255, color.g * 255, color.b * 255, 255);
+    }
+
+    Mat TextureToMat(Texture2D texture)
     {
         Mat output = new Mat(texture.height, texture.width, CvType.CV_8UC4);
         Utils.texture2DToMat(texture, output, false);
-        Imgproc.cvtColor(output, output, Imgproc.COLOR_BGR2GRAY);
         return output;
     }
 
