@@ -5,6 +5,7 @@ using UnityEngine;
 public class Canvas : MonoBehaviour
 {
     public bool isClicking = false;
+    public GameObject mask;
     public bool jump = false;
     public bool fall = false;
     public bool rotate = false;
