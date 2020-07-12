@@ -15,6 +15,7 @@ public class Cursor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log(Screen.width);
         Screen.lockCursor = true;
     }
 
@@ -22,6 +23,22 @@ public class Cursor : MonoBehaviour
     void Update()
     {
         this.gameObject.transform.position = MouseLocation();
+        if (this.gameObject.transform.position.x < Camera.main.ViewportToWorldPoint(new Vector3(0f, 0f, 0f)).x)
+        {
+            this.gameObject.transform.position = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(0f, 0f, 0f)).x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
+        }
+        if (this.gameObject.transform.position.x > Camera.main.ViewportToWorldPoint(new Vector3(1f, 0f, 0f)).x)
+        {
+            this.gameObject.transform.position = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(1f, 0f, 0f)).x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
+        }
+        if (this.gameObject.transform.position.y < Camera.main.ViewportToWorldPoint(new Vector3(0f, 0f, 0f)).y)
+        {
+            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, Camera.main.ViewportToWorldPoint(new Vector3(0f, 0f, 0f)).y, this.gameObject.transform.position.z);
+        }
+        if (this.gameObject.transform.position.y > Camera.main.ViewportToWorldPoint(new Vector3(0f, 1f, 0f)).y)
+        {
+            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, Camera.main.ViewportToWorldPoint(new Vector3(0f, 1f, 0f)).y, this.gameObject.transform.position.z);
+        }
     }
 
     Vector3 MouseLocation()
