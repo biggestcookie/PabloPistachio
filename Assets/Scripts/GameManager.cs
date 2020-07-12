@@ -48,6 +48,11 @@ public class GameManager : MonoBehaviour
         {
             canvas.GetComponent<Canvas>().jump = true;
         }
+
+        if(Input.GetKeyDown("l"))
+        {
+            canvas.GetComponent<Canvas>().lights = true;
+        }
     }
 
     void GameOver()
