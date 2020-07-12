@@ -231,6 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b25411c7f22d2e4c81cf138d6195498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ImageComparer: {fileID: 471967297}
   bikemen: {fileID: 4931717971204601778, guid: 269c048be1a618644b3878924f4c7d5e, type: 3}
   angery: {fileID: 1636067784}
   nerbous: {fileID: 1064621316}
@@ -254,6 +255,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &471967297 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7190884993106778787, guid: 11db29c5331d7cb48a6535a3b9a6ca5e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7190884992018183133}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

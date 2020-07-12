@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class GameManager : MonoBehaviour
 {
+    public GameObject ImageComparer;
     public GameObject bikemen;
     public GameObject angery;
     public GameObject nerbous;
@@ -27,13 +27,17 @@ public class GameManager : MonoBehaviour
         angery.SetActive(cursor.GetComponent<Cursor>().bumped);
         nerbous.SetActive(cursor.GetComponent<Cursor>().shaking);
         timerBar.value = timer;
-        if (!canvas.GetComponent<Canvas>().isClicking || Time.frameCount % 2 == 0)
+        if (timer <= 0f)
         {
-            timer -= Time.deltaTime;
+            timer = 0f;
+            Finish();
         }
-        if (timer < 0f)
+        else
         {
-            GameOver();
+            if (!canvas.GetComponent<Canvas>().isClicking || Time.frameCount % 2 == 0)
+            {
+                timer -= Time.deltaTime;
+            }
         }
         if (Input.GetKeyDown("a"))
         {
@@ -52,7 +56,6 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown("f") && !canvas.GetComponent<Canvas>().jump && !canvas.GetComponent<Canvas>().fall)
         {
             Instantiate(elefun);
-            Wait();
             canvas.GetComponent<Canvas>().jump = true;
         }
 
@@ -62,13 +65,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    IEnumerator Wait()
+    void Finish()
     {
-        yield return new WaitForSeconds(2f);
-    }
-
-    void GameOver()
-    {
-
+        ImageComparer.GetComponent<TestCVScript>().gameEnded = true;
     }
 }

@@ -7,13 +7,14 @@ using OpenCVForUnity.ImgprocModule;
 
 public class TestCVScript : MonoBehaviour
 {
+    public bool gameEnded = false;
     public Sprite easelSprite;
     public Sprite compareSprite;
     private string path = "C:/Users/Paul/Desktop/";
 
     void Update()
     {
-        if (Input.GetKeyUp("p"))
+        if (Input.GetKeyUp("p") || gameEnded)
         {
             CompareTwoImages();
         }
